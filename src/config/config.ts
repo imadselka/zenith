@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { z } from "zod";
 import { BroadcastConfig } from "../types"; // Adjust the path as needed
 import { displayAllChannels, getChatChannels } from "../utils/channelutils";
+import { getGroupRoles } from "../utils/roleUtils";
 
 dotenv.config();
 
@@ -16,23 +17,24 @@ export const env = envSchema.parse(process.env);
 // Create a new Discord client with guild intent.
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// Initialize config – groups will be updated once we fetch channels.
+// Initialize config – groups will be updated once we fetch channels and roles.
 export const config: BroadcastConfig = {
   groups: [],
   moderatorRoleId: "",
-  cooldownMs: 1 * 60 * 1000, // 1 minute
+  cooldownMs: 0 * 60 * 1000, // 1 minute
 };
 
 client.once("ready", async () => {
   console.log(`Logged in as ${client.user?.tag}`);
 
-  // Replace with your guild ID from the terminal ! 
+  // Replace with your guild ID.
   const guild = client.guilds.cache.get("1186713963946324058");
   if (!guild) {
     console.error("Guild not found.");
     return;
   }
 
+  // Display all channels in the guild.
   displayAllChannels(guild);
 
   // Retrieve channels whose name starts with "chat_".
@@ -40,12 +42,38 @@ client.once("ready", async () => {
   if (chatChannels.length === 0) {
     console.error("No channels found starting with 'chat_'");
   } else {
-    config.groups = chatChannels.map((channel) => ({
-      channelId: channel.id,
-      roleId: `${channel.name} role`,
-      name: channel.name,
-    }));
-    console.log("Updated groups with chat channels:", config.groups);
+    // Retrieve roles that match the "number group" pattern.
+    const groupRoles = getGroupRoles(guild);
+    console.log(
+      "Found group roles:",
+      groupRoles.map((role) => role.name)
+    );
+
+    // Map each chat channel to a group, matching by the numeric part of the channel name.
+    config.groups = chatChannels.map((channel) => {
+      // Assuming channel name is like "chat_0", split to extract the number.
+      const parts = channel.name.split("_");
+      const groupNumber = parts.length > 1 ? parts[1] : "";
+      let roleId = "";
+      if (groupNumber) {
+        // The corresponding role name should be like "0 group".
+        const matchingRole = groupRoles.find(
+          (role) => role.name === `${groupNumber} group`
+        );
+        if (matchingRole) {
+          roleId = matchingRole.id;
+        }
+      }
+      return {
+        channelId: channel.id,
+        roleId,
+        name: channel.name,
+      };
+    });
+    console.log(
+      "Updated groups with chat channels and group roles:",
+      config.groups
+    );
   }
 
   // Fetch the Moderator Role by its name.
