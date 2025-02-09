@@ -1,116 +1,161 @@
-# Zenith Bot
+<div align="center">
 
-## Overview
+# 🌟 Zenith Bot
 
-The Zenith Bot is a versatile tool designed to enhance community engagement and moderation on Discord servers. It provides a range of commands, from basic information retrieval to advanced group management and message broadcasting.
+A powerful Discord bot for seamless community management and engagement
 
-## Features
+[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-- **Broadcasts:** Allows moderators to send messages to multiple groups simultaneously ([`BroadcastCommand`](src/commands/broadcast.command.ts)).
-- **Group Management:** Facilitates the creation, deletion, and management of user groups ([`CreateGroupCommand`](src/commands/create-group.command.ts), [`DeleteGroupCommand`](src/commands/delete-group.command.ts), [`MoveCommand`](src/commands/move.command.ts)).
-- **Channel & Role Information:** Displays lists of channels and roles available on the server ([`ChannelsCommand`](src/commands/channels.command.ts), [`RolesCommand`](src/commands/roles.command.ts)).
-- **Server Information:** Provides detailed information about the Discord server ([`ServerInfoCommand`](src/commands/serverinfo.command.ts)).
-- **User Information:** Retrieves information about a specific user ([`UserInfoCommand`](src/commands/userinfo.command.ts)).
-- **Message Control:** Includes tools for message cleanup, sending messages as the bot, and managing slow mode ([`CleanupCommand`](src/commands/cleanup.command.ts), [`MessageCommand`](src/commands/message.command.ts), [`SlowmodeCommand`](src/commands/slowmode.commands.ts)).
-- **Text-to-Speech:** Sends Text-to-Speech messages in the channel ([`TTSCommand`](src/commands/tts.command.ts)).
-- **Announcements:** Sends announcements to all configured groups ([`AnnounceCommand`](src/commands/announce.command.ts)).
-- **Message Pinning:** Allows pinning of recent messages ([`PinCommand`](src/commands/pin.command.ts)).
-- **Message Clearing:** Deletes a specified number of messages from a channel ([`ClearCommand`](src/commands/clear.commands.ts)).
-- **Polling:** Creates polls with up to 10 options ([`PollCommand`](src/commands/poll.command.ts)).
-- **Reminders:** Sets reminders for users via direct message ([`RemindCommand`](src/commands/remind.command.ts)).
-- **List Groups:** Lists all available groups with their channels and roles ([`ListGroupsCommand`](src/commands/list-groups.command.ts)).
-- **Group Messaging:** Sends a message to a specific group ([`GroupNameCommand`](src/commands/group-name.command.ts)).
+</div>
 
-## Installation
+## ✨ Features
 
-1.  **Clone the repository:**
+### 🎯 Core Functionality
 
-    ```sh
-    git clone <repository-url>
-    cd discord-bot
-    ```
+- **Advanced Group Management** - Create, delete, and manage user groups with ease
+- **Smart Broadcasting** - Send targeted messages to multiple groups simultaneously
+- **Comprehensive Server Tools** - Access detailed channel, role, and server information
+- **Engagement Tools** - Create polls, set reminders, and manage announcements
 
-2.  **Install dependencies:**
+### 🛠️ Moderation Tools
 
-    ```sh
-    npm install
-    ```
+- **Message Control** - Clean up channels, manage slow mode, and pin important messages
+- **User Management** - Move users between groups and access detailed user information
+- **Channel Management** - Send messages as the bot and manage channel settings
 
-3.  **Set up environment variables:**
+### 🎙️ Interactive Features
 
-    - Create a [.env](http://_vscodecontentref_/0) file based on the [.env.example](http://_vscodecontentref_/1) file.
-    - Fill in the DISCORD_TOKEN, CLIENT_ID, and GUILD_ID with your bot's credentials.
+- **Text-to-Speech** - Convert text messages to speech for accessibility
+- **Polling System** - Create interactive polls with up to 10 options
+- **Reminder System** - Set personal reminders via direct messages
 
-    ```
-    DISCORD_TOKEN=<your-discord-bot-token>
-    CLIENT_ID=<your-discord-client-id>
-    GUILD_ID=<your-discord-guild-id>
-    ```
+## 🚀 Quick Start
 
-## Configuration
+### Prerequisites
 
-The bot's behavior is configured via environment variables and the [config.ts](http://_vscodecontentref_/2) file. Key configurations include:
+- Node.js (v16 or higher)
+- npm or yarn
+- A Discord Bot Token
 
-- **Discord Token ([DISCORD_TOKEN](http://_vscodecontentref_/3)):** The token used to authenticate the bot with Discord.
-- **Client ID ([CLIENT_ID](http://_vscodecontentref_/4)):** The application ID of the Zenith Bot.
-- **Guild ID ([GUILD_ID](http://_vscodecontentref_/5)):** The ID of the Discord server where the bot will operate.
-- **Groups:** Defined in [config.ts](http://_vscodecontentref_/6), these are the groups that the bot will manage. Each group is associated with a channel and a role.
-- **Moderator Role:** Also configured in [config.ts](http://_vscodecontentref_/7), this role is required to use certain administrative commands.
+### Installation
 
-## Usage
+1. **Clone & Install**
 
-1.  **Build the project:**
+```bash
+# Clone the repository
+git clone <repository-url>
+cd discord-bot
 
-    ```sh
-    npm run build
-    ```
+# Install dependencies
+npm install
+```
 
-2.  **Deploy commands:**
+2. **Configure Environment**
 
-    ```sh
-    npm run deploy
-    ```
+```bash
+# Create .env file from example
+cp .env.example .env
 
-3.  **Start the bot:**
+# Add your credentials
+DISCORD_TOKEN=<your-discord-bot-token>
+CLIENT_ID=<your-discord-client-id>
+GUILD_ID=<your-discord-guild-id>
+```
 
-    ```sh
-    npm run start
-    ```
+3. **Launch**
 
-    Alternatively, for development with hot-reloads:
+```bash
+# Build the project
+npm run build
 
-    ```sh
-    npm run dev
-    ```
+# Deploy commands
+npm run deploy
 
-## Commands
+# Start the bot
+npm run start
+```
 
-The bot includes a variety of slash commands, which can be accessed in Discord by typing `/`. Here are some of the key commands:
+## 💫 Commands
 
-- `/announce`: Sends an announcement to all groups.
-- `/broadcast`: Broadcasts a message to specified channels.
-- `/channels`: Lists all channels in the server.
-- `/cleanup`: Deletes recent Zenith Bot messages.
-- `/clear`: Deletes a specified number of messages.
-- `/create-group`: Creates a new group.
-- `/delete-group`: Deletes an existing group.
-- `/group-name`: Sends a message to a specific group.
-- `/list-groups`: Lists all available groups.
-- `/message`: Sends a message to a specified channel as the bot.
-- `/move`: Moves a user from one group to another.
-- `/pin`: Pins a message from the recent messages.
-- `/poll`: Creates a poll with multiple options.
-- `/remind`: Sets a reminder for the user.
-- `/roles`: Lists all roles in the server.
-- `/serverinfo`: Displays information about the server.
-- `/slowmode`: Sets the slow mode for the current channel.
-- `/tts`: Sends a text-to-speech message.
-- `/userinfo`: Retrieves information about a user.
+### 📢 Communication
 
-## Contributing
+| Command      | Description                        |
+| ------------ | ---------------------------------- |
+| `/announce`  | Send announcements to all groups   |
+| `/broadcast` | Send messages to specific channels |
+| `/message`   | Send messages as the bot           |
+| `/tts`       | Send text-to-speech messages       |
 
-Contributions to the Zenith Bot are welcome! Please fork the repository, create a feature branch, and submit a pull request.
+### 👥 Group Management
 
-## License
+| Command         | Description               |
+| --------------- | ------------------------- |
+| `/create-group` | Create a new group        |
+| `/delete-group` | Remove an existing group  |
+| `/move`         | Move users between groups |
+| `/list-groups`  | View all available groups |
 
-See [LICENSE](LICENSE) for more information.
+### 🔧 Utility
+
+| Command    | Description              |
+| ---------- | ------------------------ |
+| `/cleanup` | Remove bot messages      |
+| `/clear`   | Delete multiple messages |
+| `/pin`     | Pin important messages   |
+| `/poll`    | Create interactive polls |
+| `/remind`  | Set personal reminders   |
+
+### ℹ️ Information
+
+| Command       | Description            |
+| ------------- | ---------------------- |
+| `/channels`   | List server channels   |
+| `/roles`      | View server roles      |
+| `/serverinfo` | Display server details |
+| `/userinfo`   | Show user information  |
+
+## ⚙️ Configuration
+
+### Core Settings
+
+Configure the bot's behavior through environment variables and `config.ts`:
+
+```typescript
+// config.ts example
+export default {
+  moderatorRole: "Moderator",
+  groups: [
+    {
+      name: "General",
+      channelId: "123456789",
+      roleId: "987654321",
+    },
+    // Add more groups as needed
+  ],
+};
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the terms of the [LICENSE](LICENSE) file.
+
+---
+
+<div align="center">
+
+Made with ❤️ by the Zenith Bot Team
+
+[Report Bug](https://github.com/imadselka/zenith/issues) · [Request Feature](https://github.com/imadselka/zenith-/issues)
+
+</div>
