@@ -1,6 +1,7 @@
 import { Client, TextChannel } from "discord.js";
 import { config } from "../config/config";
 import { BroadcastResult, Group } from "../types";
+import { DiscordLogger } from "../utils/discordLogger";
 import { BotError } from "../utils/error";
 import { logger } from "../utils/logger";
 
@@ -29,7 +30,6 @@ export class BroadcastService {
       throw new Error(`Channel not found for group: ${group.name}`);
     }
 
-    // Ensuring proper formatting
     const formattedMessage = `<@&${group.roleId}>\n\n${message}`;
 
     await channel.send(formattedMessage);
@@ -74,6 +74,13 @@ export class BroadcastService {
         userId,
       },
       "Broadcast completed"
+    );
+
+    await DiscordLogger.log(
+      `Broadcast completed by <@${userId}>\nSuccessful: ${successful.join(
+        ", "
+      )}\nFailed: ${failed.join(", ")}`,
+      failed.length === 0 ? "success" : "error"
     );
 
     return { successful, failed };

@@ -1,6 +1,7 @@
 import { Client, Events, GatewayIntentBits, TextChannel } from "discord.js";
 import { env } from "./config/config";
 import { InteractionHandler } from "./handlers/interaction.handler";
+import { DiscordLogger } from "./utils/discordLogger";
 import { GuildManager } from "./utils/guild";
 import { logger } from "./utils/logger";
 
@@ -9,6 +10,8 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessageReactions,
   ],
 });
 
@@ -23,6 +26,8 @@ const botLogsChannelId = "1337897157608603668";
 client.once(Events.ClientReady, async () => {
   try {
     await guildManager.initialize();
+    DiscordLogger.initialize(client, botLogsChannelId);
+    await DiscordLogger.log("Bot is ready! 🚀", "success");
     logger.info("Bot is ready!");
   } catch (error) {
     logger.error({ error }, "Failed to initialize guild");

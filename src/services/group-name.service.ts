@@ -5,7 +5,6 @@ export class GroupNameService {
   constructor(private readonly client: Client) {}
 
   async sendMessage(roleId: string, message: string): Promise<void> {
-    // Find the group matching the provided roleId.
     const group = config.groups.find((g) => g.roleId === roleId);
     if (!group) {
       throw new Error("No group found for the specified role.");
@@ -18,7 +17,6 @@ export class GroupNameService {
       throw new Error("Channel not found for the specified group.");
     }
 
-    // Format the message: mention the role at the top followed by the message.
     const formattedMessage = `<@&${roleId}>\n\n${message}`;
     await channel.send(formattedMessage);
   }

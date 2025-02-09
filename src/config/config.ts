@@ -7,17 +7,14 @@ import { getGroupRoles } from "../utils/roleUtils";
 
 dotenv.config();
 
-// Validate environment variables using zod.
 const envSchema = z.object({
   DISCORD_TOKEN: z.string(),
   CLIENT_ID: z.string(),
 });
 export const env = envSchema.parse(process.env);
 
-// Create a new Discord client with guild intent.
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// Initialize config – groups will be updated once we fetch channels and roles.
 export const config: BroadcastConfig = {
   groups: [],
   moderatorRoleId: "",

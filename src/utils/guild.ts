@@ -8,7 +8,6 @@ export class GuildManager {
   constructor(private readonly client: Client) {}
 
   async initialize(): Promise<string> {
-    // Wait for client to be ready if it isn't already
     if (!this.client.isReady()) {
       await new Promise<void>((resolve) => {
         this.client.once('ready', () => resolve());

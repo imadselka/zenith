@@ -26,12 +26,10 @@ export class BroadcastCommand {
   async execute(interaction: ChatInputCommandInteraction) {
     const member = interaction.member as GuildMember;
 
-    // Verify moderator role
     if (!member?.roles?.cache?.has(config.moderatorRoleId)) {
       throw new PermissionError("Insufficient permissions");
     }
 
-    // Build the modal
     const modal = new ModalBuilder()
       .setCustomId("broadcastModal")
       .setTitle("Broadcast Message");
