@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js";
 import { broadcastCommand } from "./commands/broadcast.command";
+import { groupNameCommand } from "./commands/group-name.command";
 import { env } from "./config/config";
 import { GuildManager } from "./utils/guild";
 import { logger } from "./utils/logger";
@@ -21,7 +22,7 @@ export async function registerCommands(): Promise<void> {
     logger.info({ guildId }, "Starting command registration");
 
     await rest.put(Routes.applicationGuildCommands(env.CLIENT_ID, guildId), {
-      body: [broadcastCommand.toJSON()],
+      body: [broadcastCommand.toJSON(), groupNameCommand.toJSON()],
     });
 
     logger.info("Commands registered successfully");

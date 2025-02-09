@@ -2,7 +2,7 @@ import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 import { z } from "zod";
 import { BroadcastConfig } from "../types"; // Adjust the path as needed
-import { displayAllChannels, getChatChannels } from "../utils/channelutils";
+import { displayAllChannels, getChatChannels } from "../utils/channelUtils";
 import { getGroupRoles } from "../utils/roleUtils";
 
 dotenv.config();
