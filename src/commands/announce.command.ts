@@ -9,15 +9,19 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from "discord.js";
-import { config } from "../config/config";
 import { DiscordLogger } from "../utils/discordLogger";
 
 export const announceCommand = new SlashCommandBuilder()
   .setName("announce")
-  .setDescription("Opens a modal to send an announcement to all groups")
+  .setDescription(
+    "Opens a modal to send an announcement to the announcements channel"
+  )
   .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages);
 
 export class AnnounceCommand {
+  // use /channels to find the announcements channel id
+  private readonly ANNOUNCEMENTS_CHANNEL_ID = "1338580553791832074";
+
   async execute(interaction: ChatInputCommandInteraction) {
     const modal = new ModalBuilder()
       .setCustomId("announceModal")
@@ -47,17 +51,21 @@ export class AnnounceCommand {
         "announcementContent"
       );
 
-      for (const group of config.groups) {
-        const channel = interaction.client.channels.cache.get(group.channelId);
+      const channel = interaction.client.channels.cache.get(
+        this.ANNOUNCEMENTS_CHANNEL_ID
+      );
 
-        if (channel?.isTextBased()) {
-          const textChannel = channel as TextChannel;
-          await textChannel.send({
-            content: `@everyone\n\n${message}`,
-            allowedMentions: { parse: ["everyone"] },
-          });
-        }
+      if (!channel?.isTextBased()) {
+        throw new Error(
+          "Announcements channel not found or is not a text channel"
+        );
       }
+
+      const textChannel = channel as TextChannel;
+      await textChannel.send({
+        content: `@everyone\n\n${message}`,
+        allowedMentions: { parse: ["everyone"] },
+      });
 
       await DiscordLogger.log(
         `User ${interaction.user.tag} sent announcement: "${message}"`,
@@ -65,7 +73,7 @@ export class AnnounceCommand {
       );
 
       await interaction.editReply({
-        content: "✅ Announcement sent to all groups!",
+        content: "✅ Announcement sent successfully!",
       });
     } catch (error) {
       await DiscordLogger.log(
