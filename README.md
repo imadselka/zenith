@@ -38,7 +38,7 @@ A powerful Discord bot for seamless community management and engagement
 - npm or yarn
 - A Discord Bot Token
 
-### Installation
+### Installation & Setup
 
 1. **Clone & Install**
 
@@ -57,13 +57,28 @@ npm install
 # Create .env file from example
 cp .env.example .env
 
-# Add your credentials
-DISCORD_TOKEN=<your-discord-bot-token>
+# Add your bot token
+DISCORD_TOKEN=<your_bot_token_here>
 CLIENT_ID=<your-discord-client-id>
-GUILD_ID=<your-discord-guild-id>
+
 ```
 
-3. **Launch**
+3. **Start Development Server**
+
+```bash
+# Run the development server
+npm run dev
+```
+
+4. **Get Server Information**
+
+- When you start the bot with `npm run dev`, it will automatically log:
+  - Your Guild (Server) ID
+  - All Channel IDs and their names
+  - Bot Logs Channel ID
+  - All available roles
+
+5. **Launch Production**
 
 ```bash
 # Build the project
