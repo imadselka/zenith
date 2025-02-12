@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 import { z } from "zod";
-import { BroadcastConfig } from "../types"; // Adjust the path as needed
+import { BroadcastConfig } from "../types"; 
 import { displayAllChannels, getChatChannels } from "../utils/channelUtils";
 import { getGroupRoles } from "../utils/roleUtils";
 
@@ -25,6 +25,7 @@ client.once("ready", async () => {
   console.log(`Logged in as ${client.user?.tag}`);
 
   // Replace with your guild ID.
+  // You can find this guild ID thing when u type "npm run dev" in the terminal
   const guild = client.guilds.cache.get("1186713963946324058");
   if (!guild) {
     console.error("Guild not found.");

@@ -130,27 +130,6 @@ npm run start
 | `/serverinfo` | Display server details |
 | `/userinfo`   | Show user information  |
 
-## ⚙️ Configuration
-
-### Core Settings
-
-Configure the bot's behavior through environment variables and `config.ts`:
-
-```typescript
-// config.ts example
-export default {
-  moderatorRole: "Moderator",
-  groups: [
-    {
-      name: "General",
-      channelId: "123456789",
-      roleId: "987654321",
-    },
-    // Add more groups as needed
-  ],
-};
-```
-
 ## 🤝 Contributing
 
 We welcome contributions! Here's how you can help:

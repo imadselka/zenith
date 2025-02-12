@@ -1,6 +1,7 @@
 import {
   ChatInputCommandInteraction,
   EmbedBuilder,
+  PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
 import { config } from "../config/config";
@@ -8,7 +9,8 @@ import { DiscordLogger } from "../utils/discordLogger";
 
 export const listGroupsCommand = new SlashCommandBuilder()
   .setName("list-groups")
-  .setDescription("Lists all available groups");
+  .setDescription("Lists all available groups")
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 export class ListGroupsCommand {
   async execute(interaction: ChatInputCommandInteraction) {

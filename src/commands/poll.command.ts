@@ -1,12 +1,14 @@
 import {
   ChatInputCommandInteraction,
   EmbedBuilder,
+  PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
 
 export const pollCommand = new SlashCommandBuilder()
   .setName("poll")
   .setDescription("Create a poll")
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
   .addStringOption((option) =>
     option
       .setName("question")
