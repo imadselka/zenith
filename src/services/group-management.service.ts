@@ -39,7 +39,6 @@ export class GroupManagementService {
       ],
     });
 
-    // Update config
     config.groups.push({
       channelId: textChannel.id,
       roleId: role.id,
@@ -55,7 +54,13 @@ export class GroupManagementService {
     if (role) await role.delete();
 
     const channel = guild.channels.cache.get(group.channelId);
-    if (channel) await channel.delete();
+    if (channel) {
+      const parentCategory = channel.parent;
+      await channel.delete();
+      if (parentCategory) {
+        await parentCategory.delete();
+      }
+    }
 
     config.groups = config.groups.filter((g) => g.name !== groupName);
   }
