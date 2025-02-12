@@ -44,7 +44,7 @@ A powerful Discord bot for seamless community management and engagement
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/imadselka/zenith
 cd discord-bot
 
 # Install dependencies
